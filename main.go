@@ -18,7 +18,7 @@ func main() {
 
 	// 4. 启动服务
 	port := config.GlobalConfig.Server.Port
-	log.Printf("极简服务启动成功：http://127.0.0.1:%s/test", port)
+	log.Printf("启动成功：http://127.0.0.1:%s/test", port)
 	if err := r.Run(":" + port); err != nil {
 		log.Fatalf("服务启动失败：%v", err)
 	}

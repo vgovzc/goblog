@@ -13,12 +13,14 @@ func LogMiddleware() gin.HandlerFunc {
 		// 前置处理
 		start := time.Now()
 		path := c.Request.URL.Path
+		method := c.Request.Method
 
 		// 放行请求
 		c.Next()
 
 		// 后置处理
 		cost := time.Since(start)
-		fmt.Printf("请求日志（空架子）：path=%s, cost=%v\n", path, cost)
+		status := c.Writer.Status()
+		fmt.Printf("[%s] %s %d %v\n", method, path, status, cost)
 	}
 }
