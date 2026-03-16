@@ -17,7 +17,7 @@ type Post struct {
 	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`
 
 	// 可选：关联用户（便于GORM关联查询）
-	User User `gorm:"foreignKey:UserID;references:ID" json:"user,omitempty"`
+	User User `gorm:"foreignKey:UserID;references:ID" json:"user"`
 }
 
 // TableName 显式指定表名

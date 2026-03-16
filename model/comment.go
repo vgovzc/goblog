@@ -16,8 +16,8 @@ type Comment struct {
 	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`
 
 	// 可选：关联关系（便于GORM关联查询）
-	Post Post `gorm:"foreignKey:PostID;references:ID" json:"post,omitempty"`
-	User User `gorm:"foreignKey:UserID;references:ID" json:"user,omitempty"`
+	Post Post `gorm:"foreignKey:PostID;references:ID" json:"post"`
+	User User `gorm:"foreignKey:UserID;references:ID" json:"user"`
 }
 
 // TableName 显式指定表名，避免歧义
