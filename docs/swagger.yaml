@@ -1,0 +1,346 @@
+definitions:
+  controller.UpdateCommentRequest:
+    properties:
+      content:
+        type: string
+    type: object
+  controller.UpdatePostRequest:
+    properties:
+      content:
+        type: string
+      title:
+        type: string
+    type: object
+  controller.UpdateUserRequest:
+    properties:
+      age:
+        type: integer
+      code:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  model.Comment:
+    properties:
+      content:
+        description: 加not null约束
+        type: string
+      created_at:
+        description: 自动填充创建时间
+        type: string
+      id:
+        description: 加autoIncrement确保自增
+        type: integer
+      post:
+        allOf:
+        - $ref: '#/definitions/model.Post'
+        description: 可选：关联关系（便于GORM关联查询）
+      post_id:
+        description: 驼峰命名+not null
+        type: integer
+      updated_at:
+        description: 自动填充更新时间
+        type: string
+      user:
+        $ref: '#/definitions/model.User'
+      user_id:
+        description: 补充缺失的user_id字段
+        type: integer
+    type: object
+  model.Post:
+    properties:
+      content:
+        type: string
+      created_at:
+        description: 自动填充创建时间
+        type: string
+      id:
+        description: 加autoIncrement
+        type: integer
+      title:
+        type: string
+      updated_at:
+        description: 自动填充更新时间
+        type: string
+      user:
+        allOf:
+        - $ref: '#/definitions/model.User'
+        description: 可选：关联用户（便于GORM关联查询）
+      user_id:
+        description: 加not null约束
+        type: integer
+    type: object
+  model.User:
+    properties:
+      age:
+        type: integer
+      code:
+        type: string
+      created_at:
+        description: 自动填充创建时间
+        type: string
+      email:
+        type: string
+      id:
+        description: 加autoIncrement
+        type: integer
+      updated_at:
+        description: 自动填充更新时间
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/article/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete article by ID
+      parameters:
+      - description: Article ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete article
+      tags:
+      - article
+    get:
+      consumes:
+      - application/json
+      description: Get article by ID
+      parameters:
+      - description: Article ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Post'
+      summary: Get article by ID
+      tags:
+      - article
+    put:
+      consumes:
+      - application/json
+      description: Update article by ID
+      parameters:
+      - description: Article ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Article info
+        in: body
+        name: article
+        required: true
+        schema:
+          $ref: '#/definitions/controller.UpdatePostRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Post'
+      summary: Update article
+      tags:
+      - article
+  /api/article/list:
+    get:
+      consumes:
+      - application/json
+      description: Get all articles
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Post'
+            type: array
+      summary: Get article list
+      tags:
+      - article
+  /api/comment/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete comment by ID
+      parameters:
+      - description: Comment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete comment
+      tags:
+      - comment
+    get:
+      consumes:
+      - application/json
+      description: Get comment by ID
+      parameters:
+      - description: Comment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Comment'
+      summary: Get comment by ID
+      tags:
+      - comment
+    put:
+      consumes:
+      - application/json
+      description: Update comment by ID
+      parameters:
+      - description: Comment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Comment info
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/controller.UpdateCommentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Comment'
+      summary: Update comment
+      tags:
+      - comment
+  /api/comment/list:
+    get:
+      consumes:
+      - application/json
+      description: Get all comments
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Comment'
+            type: array
+      summary: Get comment list
+      tags:
+      - comment
+  /api/user/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete user by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete user
+      tags:
+      - user
+    get:
+      consumes:
+      - application/json
+      description: Get user by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+      summary: Get user by ID
+      tags:
+      - user
+    put:
+      consumes:
+      - application/json
+      description: Update user by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User info
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controller.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+      summary: Update user
+      tags:
+      - user
+  /api/user/list:
+    get:
+      consumes:
+      - application/json
+      description: Get all users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.User'
+            type: array
+      summary: Get user list
+      tags:
+      - user
+swagger: "2.0"

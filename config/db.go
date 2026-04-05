@@ -6,6 +6,8 @@ import (
 	"os"
 	"time"
 
+	"goblog/model"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -54,4 +56,10 @@ func InitDB() {
 	// 赋值给全局 DB
 	DB = db
 	log.Println("数据库连接成功！")
+
+	// Auto migrate tables
+	if err := db.AutoMigrate(&model.User{}, &model.Post{}, &model.Comment{}); err != nil {
+		log.Fatalf("数据库迁移失败：%v", err)
+	}
+	log.Println("数据库迁移成功！")
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"goblog/config"
+	_ "goblog/docs"
 	"goblog/router"
 	"log"
 )
