@@ -27,9 +27,9 @@ func SetupRouter() *gin.Engine {
 	// 博客文章路由
 	articleGroup := r.Group("/api/article")
 	{
+		articleGroup.POST("/create", controller.CreateArticle)
 		articleGroup.GET("/list", controller.GetArticleList)
 		articleGroup.GET("/:id", controller.GetArticleByID)
-		articleGroup.POST("/create", controller.CreateArticle)
 		articleGroup.PUT("/:id", controller.UpdateArticle)
 		articleGroup.DELETE("/:id", controller.DeleteArticle)
 	}
@@ -37,9 +37,9 @@ func SetupRouter() *gin.Engine {
 	// 用户路由
 	userGroup := r.Group("/api/user")
 	{
+		userGroup.POST("/create", controller.CreateUser)
 		userGroup.GET("/list", controller.GetUserList)
 		userGroup.GET("/:id", controller.GetUserByID)
-		userGroup.POST("/create", controller.CreateUser)
 		userGroup.PUT("/:id", controller.UpdateUser)
 		userGroup.DELETE("/:id", controller.DeleteUser)
 	}
@@ -47,9 +47,9 @@ func SetupRouter() *gin.Engine {
 	// 评论路由
 	commentGroup := r.Group("/api/comment")
 	{
+		commentGroup.POST("/create", controller.CreateComment)
 		commentGroup.GET("/list", controller.GetCommentList)
 		commentGroup.GET("/:id", controller.GetCommentByID)
-		commentGroup.POST("/create", controller.CreateComment)
 		commentGroup.PUT("/:id", controller.UpdateComment)
 		commentGroup.DELETE("/:id", controller.DeleteComment)
 	}

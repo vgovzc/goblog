@@ -17,14 +17,6 @@ import (
 
 var userService = service.NewUserService()
 
-// @Summary Create user
-// @Description Create a new user
-// @Tags user
-// @Accept json
-// @Produce json
-// @Param user body CreateUserRequest true "User info"
-// @Success 200 {object} model.User
-// @Router /api/user/create [post]
 type CreateUserRequest struct {
 	Username string `json:"username" binding:"required"`
 	Code     string `json:"code" binding:"required"`
@@ -41,6 +33,14 @@ type UpdateUserRequest struct {
 	Age      uint   `json:"age"`
 }
 
+// @Summary Create user
+// @Description Create a new user
+// @Tags user
+// @Accept json
+// @Produce json
+// @Param user body CreateUserRequest true "User info"
+// @Success 200 {object} model.User
+// @Router /api/user/create [post]
 func CreateUser(c *gin.Context) {
 	var req CreateUserRequest
 	if err := c.ShouldBindJSON(&req); err != nil {

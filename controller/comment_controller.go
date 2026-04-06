@@ -17,14 +17,6 @@ import (
 
 var commentService = service.NewCommentService()
 
-// @Summary Create comment
-// @Description Create a new comment
-// @Tags comment
-// @Accept json
-// @Produce json
-// @Param comment body CreateCommentRequest true "Comment info"
-// @Success 200 {object} model.Comment
-// @Router /api/comment/create [post]
 type CreateCommentRequest struct {
 	Content string `json:"content" binding:"required"`
 	PostID  uint   `json:"post_id" binding:"required"`
@@ -35,6 +27,14 @@ type UpdateCommentRequest struct {
 	Content string `json:"content"`
 }
 
+// @Summary Create comment
+// @Description Create a new comment
+// @Tags comment
+// @Accept json
+// @Produce json
+// @Param comment body CreateCommentRequest true "Comment info"
+// @Success 200 {object} model.Comment
+// @Router /api/comment/create [post]
 func CreateComment(c *gin.Context) {
 	var req CreateCommentRequest
 	if err := c.ShouldBindJSON(&req); err != nil {

@@ -16,6 +16,40 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/article/create": {
+            "post": {
+                "description": "Create a new article",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "article"
+                ],
+                "summary": "Create article",
+                "parameters": [
+                    {
+                        "description": "Article info",
+                        "name": "article",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.CreatePostRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Post"
+                        }
+                    }
+                }
+            }
+        },
         "/api/article/list": {
             "get": {
                 "description": "Get all articles",
@@ -140,6 +174,40 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/comment/create": {
+            "post": {
+                "description": "Create a new comment",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comment"
+                ],
+                "summary": "Create comment",
+                "parameters": [
+                    {
+                        "description": "Comment info",
+                        "name": "comment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.CreateCommentRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Comment"
+                        }
+                    }
+                }
+            }
+        },
         "/api/comment/list": {
             "get": {
                 "description": "Get all comments",
@@ -260,6 +328,40 @@ const docTemplate = `{
                 "responses": {
                     "200": {
                         "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/user/create": {
+            "post": {
+                "description": "Create a new user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Create user",
+                "parameters": [
+                    {
+                        "description": "User info",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controller.CreateUserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.User"
+                        }
                     }
                 }
             }
@@ -390,6 +492,69 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "controller.CreateCommentRequest": {
+            "type": "object",
+            "required": [
+                "content",
+                "post_id",
+                "user_id"
+            ],
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "post_id": {
+                    "type": "integer"
+                },
+                "user_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "controller.CreatePostRequest": {
+            "type": "object",
+            "required": [
+                "title",
+                "user_id"
+            ],
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "controller.CreateUserRequest": {
+            "type": "object",
+            "required": [
+                "code",
+                "email",
+                "password",
+                "username"
+            ],
+            "properties": {
+                "age": {
+                    "type": "integer"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "controller.UpdateCommentRequest": {
             "type": "object",
             "properties": {

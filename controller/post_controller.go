@@ -17,14 +17,6 @@ import (
 
 var postService = service.NewPostService()
 
-// @Summary Create article
-// @Description Create a new article
-// @Tags article
-// @Accept json
-// @Produce json
-// @Param article body CreatePostRequest true "Article info"
-// @Success 200 {object} model.Post
-// @Router /api/article/create [post]
 type CreatePostRequest struct {
 	Title   string `json:"title" binding:"required"`
 	Content string `json:"content"`
@@ -36,6 +28,14 @@ type UpdatePostRequest struct {
 	Content string `json:"content"`
 }
 
+// @Summary Create article
+// @Description Create a new article
+// @Tags article
+// @Accept json
+// @Produce json
+// @Param article body CreatePostRequest true "Article info"
+// @Success 200 {object} model.Post
+// @Router /api/article/create [post]
 func CreateArticle(c *gin.Context) {
 	var req CreatePostRequest
 	if err := c.ShouldBindJSON(&req); err != nil {

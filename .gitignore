@@ -1,3 +1,8 @@
 .opencode/cache/         # 缓存文件
 .opencode/index/         # 项目索引（自动生成）
 .opencode/config.json    # 本地密钥/个人配置（绝对不能提交！）
+/.idea/.gitignore
+/.idea/goblog.iml
+/.idea/modules.xml
+/server.log
+/.idea/vcs.xml

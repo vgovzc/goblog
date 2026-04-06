@@ -1,4 +1,47 @@
 definitions:
+  controller.CreateCommentRequest:
+    properties:
+      content:
+        type: string
+      post_id:
+        type: integer
+      user_id:
+        type: integer
+    required:
+    - content
+    - post_id
+    - user_id
+    type: object
+  controller.CreatePostRequest:
+    properties:
+      content:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: integer
+    required:
+    - title
+    - user_id
+    type: object
+  controller.CreateUserRequest:
+    properties:
+      age:
+        type: integer
+      code:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - code
+    - email
+    - password
+    - username
+    type: object
   controller.UpdateCommentRequest:
     properties:
       content:
@@ -162,6 +205,28 @@ paths:
       summary: Update article
       tags:
       - article
+  /api/article/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new article
+      parameters:
+      - description: Article info
+        in: body
+        name: article
+        required: true
+        schema:
+          $ref: '#/definitions/controller.CreatePostRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Post'
+      summary: Create article
+      tags:
+      - article
   /api/article/list:
     get:
       consumes:
@@ -244,6 +309,28 @@ paths:
       summary: Update comment
       tags:
       - comment
+  /api/comment/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new comment
+      parameters:
+      - description: Comment info
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/controller.CreateCommentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Comment'
+      summary: Create comment
+      tags:
+      - comment
   /api/comment/list:
     get:
       consumes:
@@ -324,6 +411,28 @@ paths:
           schema:
             $ref: '#/definitions/model.User'
       summary: Update user
+      tags:
+      - user
+  /api/user/create:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user
+      parameters:
+      - description: User info
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controller.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+      summary: Create user
       tags:
       - user
   /api/user/list:
